@@ -5,6 +5,7 @@ class Notification(models.Model):
     NOTIF_TYPES = (('email', 'Email'), ('sms', 'SMS'), ('in_app', 'In-App'))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     notification_type = models.CharField(choices=NOTIF_TYPES, max_length=10)
+    title=models.CharField(max_length=255,null=True,blank=True)
     message = models.TextField()
     status = models.CharField(max_length=20, default='pending')  # pending/sent/failed
     created_at = models.DateTimeField(auto_now_add=True)

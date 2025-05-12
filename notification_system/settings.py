@@ -61,7 +61,7 @@ ROOT_URLCONF = 'notification_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,16 +128,15 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Celery Settings
-CELERY_broker_url=config('redis')
-accept_content=['application/json']
-result_serializer='json'
-task_serializer='json'
+CELERY_BROKER_URL='redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT=['application/json']
+CELERY_RESULT_SERIALIZER='json'
+CELERY_TASK_SERIALIZER='json'
 CELERY_TIME_ZONE='Asia/Kolkata'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-result_backend = 'django-db'
-
+CELERY_RESULT_BACKEND = 'django-db'
 
 EMAIL_HOST = config('email_host')
 EMAIL_PORT = config('email_port', cast=int)
@@ -145,3 +144,6 @@ EMAIL_HOST_USER = config('email_user')
 EMAIL_HOST_PASSWORD = config('email_passkey')
 EMAIL_USE_TLS = config('email_use_tls', cast=bool)
 DEFAULT_FROM_EMAIL = config('default_from_email')
+TWILIO_ACCOUNT_SID=config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN=config('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER=config('TWILIO_PHONE_NUMBER')

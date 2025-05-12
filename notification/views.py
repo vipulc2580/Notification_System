@@ -16,11 +16,11 @@ class NotificationView(APIView):
             # print(serializer.data)
             notification_instance=serializer.save()
             if notification_instance.notification_type=='email':
-                send_email_notification(notification_instance.id)
+                send_email_notification.delay(notification_instance.id)
             elif notification_instance.notification_type=='sms':
-                send_sms_notification(notification_instance.id)
+                send_sms_notification.delay(notification_instance.id)
             elif notification_instance.notification_type=='in_app':
-                send_in_app_notification(notification_instance.id)
+                send_in_app_notification.delay(notification_instance.id)
             return Response({'message':'Notification is saved and will be sent'},status=status.HTTP_200_OK)
         else:
             return Response({'message':'Will respond you soon'},status=status.HTTP_400_BAD_REQUEST)    
